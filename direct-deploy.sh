@@ -2,7 +2,7 @@
 # Direct deployment script that uses SSH to run commands directly on the EC2 instance
 
 # Configuration
-EC2_IP="13.203.79.63"
+EC2_IP="13.201.190.191"
 DOMAIN="gateprep.app"
 SSH_KEY="/Users/mayankkashyap/Downloads/my-aws-keypair.pem"
 EMAIL="mayank@gateprep.app"
