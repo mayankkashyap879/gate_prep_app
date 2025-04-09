@@ -25,13 +25,14 @@ services:
       # Only expose to localhost in production
       - "127.0.0.1:5001:5001"
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/gate_prep_app
+      - MONGODB_URI=mongodb://mayankksp:Rnw%40085671@127.0.0.1:27017/gate_prep_app?authSource=admin
       - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_here} # Use environment variable or default
       - PORT=5001
       - NODE_ENV=${NODE_ENV:-production}
       - ADMIN_EMAILS=${ADMIN_EMAILS:-admin@gateprep.com}
-    depends_on:
-      - mongodb
+    # Use external MongoDB
+    # depends_on:
+    #  - mongodb
     restart: unless-stopped
     # Use volumes for development only, comment out for production
     volumes:
@@ -39,19 +40,20 @@ services:
       - /app/node_modules
       - ./backend/uploads:/app/uploads
 
-  mongodb:
-    image: mongo:latest
-    ports:
-      # Only expose to localhost in production
-      - "127.0.0.1:27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-    restart: unless-stopped
-    # Enable authentication in production
-    # command: ["--auth"]
-    # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME:-admin}
-    #   MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-password}
+  # Using external MongoDB - commented out
+  # mongodb:
+  #   image: mongo:latest
+  #   ports:
+  #     # Only expose to localhost in production
+  #     - "127.0.0.1:27017:27017"
+  #   volumes:
+  #     - mongodb_data:/data/db
+  #   restart: unless-stopped
+  #   # Enable authentication in production
+  #   # command: ["--auth"]
+  #   # environment:
+  #   #   MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME:-admin}
+  #   #   MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-password}
 
   # Add nginx for production
   nginx:
@@ -80,7 +82,7 @@ services:
     profiles: ["prod"]
 
 volumes:
-  mongodb_data:
+  # mongodb_data:
   
 # Add a .env file with these variables for production
 # JWT_SECRET=strong_random_string
