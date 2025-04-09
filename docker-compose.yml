@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:5001/api
+    depends_on:
+      - backend
+    restart: unless-stopped
+    # Use volumes for development only, comment out for production
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      # Only expose to localhost in production
+      - "127.0.0.1:5001:5001"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/gate_prep_app
+      - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_here} # Use environment variable or default
+      - PORT=5001
+      - NODE_ENV=${NODE_ENV:-production}
+      - ADMIN_EMAILS=${ADMIN_EMAILS:-admin@gateprep.com}
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+    # Use volumes for development only, comment out for production
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - ./backend/uploads:/app/uploads
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      # Only expose to localhost in production
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+    # Enable authentication in production
+    # command: ["--auth"]
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME:-admin}
+    #   MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-password}
+
+  # Add nginx for production
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+    # Uncomment for development
+    profiles: ["prod"]
+
+  # Add certbot for SSL certificates in production
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    # Uncomment for development
+    profiles: ["prod"]
+
+volumes:
+  mongodb_data:
+  
+# Add a .env file with these variables for production
+# JWT_SECRET=strong_random_string
+# NODE_ENV=production
+# ADMIN_EMAILS=admin@example.com,admin2@example.com
+# MONGO_USERNAME=admin
+# MONGO_PASSWORD=secure_password
