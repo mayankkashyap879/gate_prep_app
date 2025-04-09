@@ -12,12 +12,27 @@ import { Plus, Edit, Trash, Upload, Calendar, File, ExternalLink } from "lucide-
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
+interface Quiz {
+  _id: string;
+  name: string;
+  link: string;
+  date: string | Date;
+  subject: string;
+  topics: string[];
+  remarks?: string;
+}
+
+interface Subject {
+  _id: string;
+  name: string;
+}
+
 export default function AdminQuizzes() {
-  const [quizzes, setQuizzes] = useState<any[]>([]);
-  const [subjects, setSubjects] = useState<any[]>([]);
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+  const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("list");
-  const [editingQuiz, setEditingQuiz] = useState<any>(null);
+  const [editingQuiz, setEditingQuiz] = useState<Quiz | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     link: "",
@@ -126,7 +141,7 @@ export default function AdminQuizzes() {
     }
   };
 
-  const handleEdit = (quiz: any) => {
+  const handleEdit = (quiz: Quiz) => {
     setEditingQuiz(quiz);
     setFormData({
       name: quiz.name,

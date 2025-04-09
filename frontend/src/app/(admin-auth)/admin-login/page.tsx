@@ -1,3 +1,4 @@
+// frontend/src/app/admin-login/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -61,16 +62,25 @@ export default function AdminLoginPage() {
       
       toast.success("Admin login successful!");
       router.push("/admin");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Login error:", error);
       
       let errorMessage = "Login failed. Please check your credentials.";
       
       // Try to extract a meaningful error message
-      if (error.response?.data?.msg) {
-        errorMessage = error.response.data.msg;
-      } else if (error.message) {
-        errorMessage = error.message;
+      if (typeof error === 'object' && error !== null) {
+        if ('response' in error && 
+            typeof error.response === 'object' && 
+            error.response !== null && 
+            'data' in error.response && 
+            typeof error.response.data === 'object' && 
+            error.response.data !== null && 
+            'msg' in error.response.data && 
+            typeof error.response.data.msg === 'string') {
+          errorMessage = error.response.data.msg;
+        } else if ('message' in error && typeof error.message === 'string') {
+          errorMessage = error.message;
+        }
       }
       
       toast.error(errorMessage);
