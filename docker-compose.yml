@@ -29,7 +29,7 @@ services:
       - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_here} # Use environment variable or default
       - PORT=5001
       - NODE_ENV=${NODE_ENV:-production}
-      - ADMIN_EMAILS=${ADMIN_EMAILS:-admin@gateprep.com}
+      - ADMIN_EMAILS=${ADMIN_EMAILS:-mayank@gateprep.app}
     # Use external MongoDB
     # depends_on:
     #  - mongodb
@@ -86,6 +86,6 @@ volumes: {}
 # Add a .env file with these variables for production
 # JWT_SECRET=strong_random_string
 # NODE_ENV=production
-# ADMIN_EMAILS=admin@example.com,admin2@example.com
+# ADMIN_EMAILS=mayank@gateprep.app
 # MONGO_USERNAME=admin
 # MONGO_PASSWORD=secure_password

@@ -13,19 +13,19 @@ This guide explains how to set up and use the admin features of the GATE Prep Ap
    ```
 
    This creates a default admin user with:
-   - Email: admin@gateprep.com
+   - Email: mayank@gateprep.app
    - Password: admin123
 
    Alternatively, you can register a new user and set them as admin by:
    - Adding their email to the `ADMIN_EMAILS` environment variable in `.env`
-   - Example: `ADMIN_EMAILS=admin@gateprep.com,anotheremail@example.com`
+   - Example: `ADMIN_EMAILS=mayank@gateprep.app,anotheremail@example.com`
 
 2. **Environment Configuration**
 
    Add this to your `.env` file:
 
    ```
-   ADMIN_EMAILS=admin@gateprep.com,youremail@example.com
+   ADMIN_EMAILS=mayank@gateprep.app,youremail@example.com
    ```
 
 ## Admin Features

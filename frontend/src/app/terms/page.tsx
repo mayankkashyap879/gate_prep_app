@@ -114,7 +114,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-semibold mt-8 mb-4">11. Contact Us</h2>
             <p>
               If you have any questions about these Terms, please contact us at 
-              <a href="mailto:terms@gateprep.app" className="text-primary"> terms@gateprep.app</a>.
+              <a href="mailto:mayank@gateprep.app" className="text-primary"> mayank@gateprep.app</a>.
             </p>
           </div>
         </div>

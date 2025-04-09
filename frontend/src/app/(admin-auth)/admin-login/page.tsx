@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="admin@example.com"
+                  placeholder="mayank@gateprep.app"
                   required
                   value={formData.email}
                   onChange={handleChange}

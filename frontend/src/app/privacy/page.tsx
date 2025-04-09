@@ -104,7 +104,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold mt-8 mb-4">Contact Us</h2>
             <p>
               If you have any questions about this Privacy Policy, please contact us at 
-              <a href="mailto:privacy@gateprep.app" className="text-primary"> privacy@gateprep.app</a>.
+              <a href="mailto:mayank@gateprep.app" className="text-primary"> mayank@gateprep.app</a>.
             </p>
           </div>
         </div>
