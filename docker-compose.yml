@@ -22,8 +22,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      # Only expose to localhost in production
-      - "127.0.0.1:5001:5001"
+      # Expose to network
+      - "5001:5001"
     environment:
       - MONGODB_URI=mongodb://mayankksp:Rnw%40085671@127.0.0.1:27017/gate_prep_app?authSource=admin
       - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_here} # Use environment variable or default
@@ -69,8 +69,8 @@ services:
       - frontend
       - backend
     restart: unless-stopped
-    # Uncomment for development
-    profiles: ["prod"]
+    # Enable by default
+    # profiles: ["prod"]
 
   # Add certbot for SSL certificates in production
   certbot:
@@ -78,8 +78,8 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    # Uncomment for development
-    profiles: ["prod"]
+    # Enable by default
+    # profiles: ["prod"]
 
 volumes:
   # mongodb_data:
