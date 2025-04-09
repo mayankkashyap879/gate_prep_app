@@ -13,8 +13,8 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
-# Build TypeScript code (with errors ignored)
-RUN npm run build || echo "TypeScript errors ignored" && echo '{"name":"backend-dist"}' > ./dist/package.json
+# Build TypeScript code
+RUN npm run build && echo '{"name":"backend-dist"}' > ./dist/package.json
 
 # Expose port 5001
 EXPOSE 5001

@@ -565,7 +565,7 @@ export const generateSchedule = async (
         });
         const deduplicatedItems = Array.from(uniqueItems.values());
         const BATCH_SIZE = 100;
-        const batches = [];
+        const batches: IScheduleItem[][] = [];
         for (let i = 0; i < deduplicatedItems.length; i += BATCH_SIZE) {
           batches.push(deduplicatedItems.slice(i, i + BATCH_SIZE));
         }

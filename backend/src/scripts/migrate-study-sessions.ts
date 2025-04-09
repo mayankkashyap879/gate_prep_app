@@ -86,7 +86,7 @@ const migrateStudySessions = async () => {
           
           // Split into batches of 50
           const BATCH_SIZE = 50;
-          const batches = [];
+          const batches: any[][] = [];
           
           for (let i = 0; i < sessions.length; i += BATCH_SIZE) {
             batches.push(sessions.slice(i, i + BATCH_SIZE));
