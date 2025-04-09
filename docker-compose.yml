@@ -81,8 +81,7 @@ services:
     # Enable by default
     # profiles: ["prod"]
 
-volumes:
-  # mongodb_data:
+volumes: {}
   
 # Add a .env file with these variables for production
 # JWT_SECRET=strong_random_string
